@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Usuarios | SISPRO-OBRA</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body><div th:replace="~{fragments/nav :: header}"></div>
+<main class="workspace"><div th:replace="~{fragments/nav :: alerts}"></div>
+<section class="panel"><h2>Gestión de usuarios</h2>
+<p><a class="btn primary" th:href="@{/usuarios/nuevo}">+ Nuevo usuario</a></p>
+<table><thead><tr><th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Rol</th><th>Obra asignada</th></tr></thead>
+<tbody><tr th:each="u:${usuarios}"><td th:text="${u.nombre}"></td><td th:text="${u.correo}"></td>
+<td th:text="${u.telefono}"></td><td th:text="${u.rol}"></td>
+<td th:text="${u.obraAsignada!=null?u.obraAsignada.nombre:'Sin asignar'}"></td></tr></tbody></table>
+</section></main><footer>SISPRO-OBRA · Java + Spring Boot + PostgreSQL</footer></body></html>

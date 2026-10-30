@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Registrar incidencia | SISPRO-OBRA</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body><div th:replace="~{fragments/nav :: header}"></div><main class="workspace"><div th:replace="~{fragments/nav :: alerts}"></div><section class="panel narrow">
+<h2>Registrar incidencia</h2><p>Selecciona una obra <strong>ACTIVA</strong> a la que tengas acceso.</p>
+<div th:if="${error != null}" style="background:#fee2e2;color:#991b1b;padding:12px;border-radius:8px;margin:12px 0" th:text="${error}"></div>
+<form th:action="@{/incidencias/guardar}" th:object="${incidencia}" method="post">
+<label for="obraId">Obra activa</label><select id="obraId" name="obraId" required><option value="">Selecciona una obra</option>
+<option th:each="o : ${obras}" th:if="${o.estado.name() == 'ACTIVA'}" th:value="${o.id}" th:text="${o.nombre}" th:selected="${obraSeleccionada != null and obraSeleccionada == o.id}"></option></select>
+<label for="titulo">Título</label><input id="titulo" th:field="*{titulo}" required>
+<label for="descripcion">Descripción</label><textarea id="descripcion" th:field="*{descripcion}" rows="4" required></textarea>
+<label for="etapa">Etapa relacionada</label><input id="etapa" th:field="*{etapa}" required>
+<label for="tipo">Tipo</label><select id="tipo" th:field="*{tipo}"><option th:each="t : ${tipos}" th:value="${t}" th:text="${t}"></option></select>
+<label for="cantidadMaterial">Cantidad de materiales (obligatoria si es FALTA_MATERIALES)</label><input id="cantidadMaterial" type="number" min="1" th:field="*{cantidadMaterial}">
+<div class="actions"><a class="btn" th:href="@{/incidencias}">Cancelar</a><button class="primary" type="submit">Registrar incidencia</button></div>
+</form></section></main><footer>SISPRO-OBRA · Proyecto académico Java + Spring Boot + PostgreSQL</footer>
+<script>const tipo=document.getElementById('tipo'),cantidad=document.getElementById('cantidadMaterial');function requerido(){cantidad.required=tipo.value==='FALTA_MATERIALES';}tipo.addEventListener('change',requerido);requerido();</script>
+</body></html>
