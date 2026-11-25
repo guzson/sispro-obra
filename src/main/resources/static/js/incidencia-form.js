@@ -1,0 +1,1 @@
+const tipo=document.getElementById('tipo'),cantidad=document.getElementById('cantidadMaterial');function requerido(){cantidad.required=tipo.value==='FALTA_MATERIALES';}tipo.addEventListener('change',requerido);requerido();

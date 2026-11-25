@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Usuarios | SISPRO-OBRA</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body><div th:replace="~{fragments/nav :: header}"></div>
+<main class="workspace"><div th:replace="~{fragments/nav :: alerts}"></div>
+<section class="panel"><h2>Gestión de usuarios</h2>
+<p><a class="btn primary" th:href="@{/usuarios/nuevo}">+ Nuevo usuario</a></p>
+<table><thead><tr><th>Nombre</th><th>Correo</th><th>Teléfono</th><th>Rol</th><th>Obra asignada</th><th>Estado</th><th>Acciones</th></tr></thead>
+<tbody><tr th:each="u:${usuarios}"><td th:text="${u.nombre}"></td><td th:text="${u.correo}"></td>
+<td th:text="${u.telefono}"></td><td th:text="${u.rol}"></td>
+<td th:text="${u.obraAsignada!=null?u.obraAsignada.nombre:'Sin asignar'}"></td><td th:text="${u.activo?'Activo':'Desactivado'}"></td><td><a class="btn small" th:href="@{/usuarios/{id}/editar(id=${u.id})}">Editar</a> <form style="display:inline" th:action="@{/usuarios/{id}/estado(id=${u.id})}" method="post"><input type="hidden" name="activo" th:value="${!u.activo}"><button class="small" data-confirm="¿Cambiar el estado de este usuario?" th:text="${u.activo?'Desactivar':'Activar'}"></button></form></td></tr></tbody></table>
+</section></main><footer>SISPRO-OBRA · Java + Spring Boot + PostgreSQL</footer><script th:src="@{/js/confirmar.js}"></script></body></html>
